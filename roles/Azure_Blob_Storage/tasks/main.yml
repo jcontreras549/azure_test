@@ -4,7 +4,7 @@
     resource_group: "{{ azure_rg }}"
     storage_account_name: "{{ azure_storage_account_name}}"
     container: "{{ container_name }}"
-    blob: "{{ path_blob_name }}"
+    blob: migration/report.json
     src: files/report.json
 
 - name: Download the file
