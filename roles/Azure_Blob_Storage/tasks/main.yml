@@ -1,0 +1,16 @@
+---
+- name: Create container and upload a file
+  azure_rm_storageblob:
+    resource_group: {{ azure_rg }}
+    storage_account_name: {{ azure_storage_account_name}}
+    container: {{ container_name }}
+    blob: {{ path_blob_name }}
+    src: report.json
+
+- name: Download the file
+  azure_rm_storageblob:
+    resource_group: BlobTest
+    storage_account_name: testaccountnt001
+    container: prueba
+    blob: migration/prueba.txt
+    dest: /tmp/prueba.txt
