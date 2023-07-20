@@ -3,4 +3,4 @@
   gather_facts: false
 
   roles:
-    name: Azure_Blob_Storage
+    - role: Azure_Blob_Storage
