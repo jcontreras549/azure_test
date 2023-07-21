@@ -1,0 +1,26 @@
+---
+- include_vars: main.yml
+
+- name: List blobs AZ
+  shell: az storage blob list --account-name "{{ azure_storage_account_name}}" --container-name "{{ container_name }}"  --output table > /tmp/list_blob_az
+
+- name: Path blobs
+  shell: cat /tmp/list_blob_az | grep application/json |awk '{print $1}' > /tmp/list_blob.txt
+
+- name: Read Data File
+  set_fact:
+    data: "{{lookup('ansible.builtin.file', '/tmp/list_blob.txt').split('\n')}}"
+
+- name: Show debug data
+  ansible.builtin.debug: var=data
+
+- name: Delete Blob
+  azure_rm_storageblob:
+    resource_group: "{{ azure_rg }}"
+    storage_account_name: "{{ azure_storage_account_name}}"
+    container: "{{ container_name }}"
+    blob: "{{ item }}"
+    state: absent
+    force: true
+  with_items:
+  - "{{ data }}"

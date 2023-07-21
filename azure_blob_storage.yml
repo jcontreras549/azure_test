@@ -4,7 +4,14 @@
 
   tasks:
 
-    - name: Run tasks/other.yaml instead of 'main'
+    - name: Upload directory Blob_Storage
       import_role:
         name: Azure_Blob_Storage
         tasks_from: Upload_directory.yml
+
+    - name: Delete XLS Files
+      import_role:
+        name: Azure_Blob_Storage
+        tasks_from: Delete_files_xls.yml
+
+    
