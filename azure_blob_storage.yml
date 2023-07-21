@@ -2,5 +2,9 @@
   hosts: localhost
   gather_facts: false
 
-  roles:
-    - role: Azure_Blob_Storage
+  tasks:
+
+    - name: Run tasks/other.yaml instead of 'main'
+      import_role:
+        name: Azure_Blob_Storage
+        tasks_from: Upload_directory.yml
