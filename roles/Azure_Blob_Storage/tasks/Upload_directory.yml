@@ -7,4 +7,5 @@
     storage_account_name: "{{ azure_storage_account_name}}"
     container: "{{ container_name }}"
     batch_upload_src: "{{ path_file }}"
+    state: absent
     force: true
