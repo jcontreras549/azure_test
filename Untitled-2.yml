@@ -1,0 +1,26 @@
+- name: Create a storage account on Microsoft Azure
+  hosts: localhost
+  gather_facts: false
+
+  vars:
+    blobs:
+      - migrations/fed-pagos-cargos/prueba.cer
+      - migrations/fed-pagos-cargos/llave.key
+      - migrations/fed-pagos-cargos/file.crt
+      - migrations/fed-pagos-cargos/json/prueba.json
+      - migrations/fed-pagos-cargos/json/pepito.json
+      - migrations/fed-pagos-cargos/json/hola.json
+
+  tasks:
+    - name: Delete Blob
+      azure_rm_storageblob:
+        resource_group: Blob2023
+        storage_account_name: testaccountnt005
+        container: onx
+        blob: "{{ item }}"
+        state: absent
+        force: true
+      with_items:
+      - "{{ blobs }}"
+
+         

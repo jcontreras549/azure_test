@@ -1,0 +1,29 @@
+- name: Complex Read file and output JSON
+  hosts: localhost
+  connection: local 
+  become: false
+  tasks:
+
+  - name: List blobs AZ
+    shell: az storage blob list --account-name testaccountnt005 --container-name onx  --output table > /tmp/list_blob_az
+
+  - name: Path blobs
+    shell: cat /tmp/list_blob_az | grep application/json |awk '{print $1}' > /tmp/list_blob.txt
+
+  - name: Read Data File
+    set_fact:
+      data: "{{lookup('ansible.builtin.file', '/tmp/list_blob.txt').split('\n')}}"
+
+  - name: Show debug data
+    ansible.builtin.debug: var=data
+
+  - name: Delete Blob
+    azure_rm_storageblob:
+      resource_group: Blob2023
+      storage_account_name: testaccountnt005
+      container: onx
+      blob: "{{ item }}"
+      state: absent
+      force: true
+    with_items:
+    - "{{ data }}"

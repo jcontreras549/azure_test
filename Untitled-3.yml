@@ -1,0 +1,36 @@
+- name: Complex Read file and output JSON
+  hosts: localhost
+  connection: local 
+  become: false
+  tasks:
+  - name: Read Data File
+    set_fact:
+      data: "{{lookup('ansible.builtin.file', '/tmp/dir.txt').split('\n')}}"
+
+  - name: Show debug data
+    ansible.builtin.debug: var=data
+
+  - name: Create a new array
+    set_fact: 
+      data_elements: []
+
+  - name: Loop through lines and add data elements to array
+    set_fact:
+      data_elements: "{{ data_elements + [{'name': item}] }}"
+    loop: "{{ data }}"
+
+  - name: Show debug data
+    ansible.builtin.debug: var=data_elements
+
+  - name: Create a List variable and print it
+    set_fact: 
+      Continents: ["migrations/fed-pagos-cargos/file.crt","migrations/fed-pagos-cargos/prueba.cer"]
+
+  - name: Download the file
+    azure_rm_storageblob:
+      resource_group: Blob2023
+      storage_account_name: testaccountnt005
+      container: onx
+      blob: "{{ Continents }}"
+      state: absent
+      force: true
