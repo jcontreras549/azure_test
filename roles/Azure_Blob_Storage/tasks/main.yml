@@ -5,5 +5,5 @@
     storage_account_name: "{{ azure_storage_account_name}}"
     container: "{{ container_name }}"
     blob: "{{ path_blob_name }}"
-    src: "{{ path_file }}"
+    batch_upload_src: "{{ path_file }}"
     force: true
