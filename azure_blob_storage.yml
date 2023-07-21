@@ -13,5 +13,3 @@
       import_role:
         name: Azure_Blob_Storage
         tasks_from: Delete_files_xls.yml
-
-    

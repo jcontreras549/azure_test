@@ -2,6 +2,9 @@
 - include_vars: main.yml
 
 - name: List blobs AZ
+  shell: az login --service-principal -u "{{ service_principal }}" -p "{{ secret_id }}" --tenant "{{ tenant_id }}"
+
+- name: List blobs AZ
   shell: az storage blob list --account-name "{{ azure_storage_account_name}}" --container-name "{{ container_name }}"  --output table > /tmp/list_blob_az
 
 - name: Path blobs
