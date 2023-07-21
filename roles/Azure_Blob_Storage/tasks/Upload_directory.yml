@@ -7,6 +7,4 @@
     storage_account_name: "{{ azure_storage_account_name}}"
     container: "{{ container_name }}"
     batch_upload_src: "{{ path_file }}"
-    blob: migration
-    state: absent
     force: true
