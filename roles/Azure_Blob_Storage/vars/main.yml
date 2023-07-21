@@ -1,4 +1,5 @@
 ---
+name_file :  prueba.txt
 azure_rg : Blob2023
 azure_storage_account_name : testaccountnt005
 container_name : srec
